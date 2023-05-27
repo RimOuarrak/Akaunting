@@ -1,0 +1,17 @@
+{
+    "alias": "modulescon",
+    "icon": "fa fa-cog",
+    "version": "1.0.0",
+    "active": 1,
+    "providers": [
+        "Modules\\Modulescon\\Providers\\Event",
+        "Modules\\Modulescon\\Providers\\Main"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": [],
+    "reports": [],
+    "widgets": [],
+    "settings": [],
+    "extra-modules": {}
+}
