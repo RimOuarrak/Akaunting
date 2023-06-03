@@ -34,8 +34,9 @@ class FinishInstallation
     {
         // c=create, r=read, u=update, d=delete
         $this->attachPermissionsToAdminRoles([
-            $this->alias . '-main' => 'c,r,u,d',
-        ]);
+            $this->alias . '-posts' => 'c,r,u,d',
+            $this->alias . '-comments' => 'c,r,u,d',
+        ]);    
     }
 
     protected function callSeeds()

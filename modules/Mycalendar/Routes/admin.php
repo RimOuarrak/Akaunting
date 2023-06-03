@@ -1,21 +1,23 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
-/**
- * 'admin' middleware and 'mycalendar' prefix applied to all routes (including names)
- *
- * @see \App\Providers\Route::register
- */
+use Modules\Mycalendar\Http\Controllers\Main;
 
 Route::admin('mycalendar', function () {
-    Route::get('/', 'Main@index')->name('index');
+    Route::get('/', [Main::class, 'index'])->name('mycalendar.index');
+    Route::post('events', [Main::class, 'store'])->name('mycalendar.events.store');
 });
-Route::get('/mycalendar/events', [CalendarController::class, 'events'])->name('calendar.events');
 
-Route::get('mycalendar/index', [CalendarController::class, 'index'])->name('calendar.index');
-Route::post('mycalendar', [CalendarController::class, 'store'])->name('calendar.store');
+Route::api('mycalendar', function () {
+    Route::get('posts/{post}/enable', 'Posts@enable')->name('mycalendar.posts.enable');
+    Route::get('posts/{post}/disable', 'Posts@disable')->name('mycalendar.posts.disable');
+    Route::resource('posts', 'Posts');
+    Route::resource('comments', 'Comments');
+});
 
-Route::patch('mycalendar/update/{id}', [CalendarController::class, 'update'])->name('calendar.update');
-Route::delete('mycalendar/destroy/{id}', [CalendarController::class, 'destroy'])->name('calendar.destroy');
-
+Route::get('mycalendar/events', [Main::class, 'events'])->name('mycalendar.events');
+Route::get('mycalendar/index', [Main::class, 'index'])->name('mycalendar.index');
+Route::post('mycalendar/store', [Main::class, 'store'])->name('mycalendar.store');
+Route::patch('mycalendar/update/{id}', [Main::class, 'update'])->name('mycalendar.update');
+Route::delete('mycalendar/destroy/{id}', [Main::class, 'destroy'])->name('mycalendar.destroy');
+Route::delete('mycalendar/events/{id}', [Main::class, 'destroy'])->name('mycalendar.events.destroy');
