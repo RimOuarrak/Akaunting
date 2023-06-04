@@ -3,6 +3,10 @@
 	IndexIgnore *
 </IfModule>
 
+<IfModule mod_headers.c>
+    Header set Access-Control-Allow-Origin "*"
+</IfModule>
+
 <IfModule mod_rewrite.c>
     # Prevent Directory Listing
     <IfModule mod_negotiation.c>

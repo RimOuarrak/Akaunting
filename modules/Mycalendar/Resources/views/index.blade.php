@@ -16,13 +16,15 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <body>
-  
   <div id="calendar"> 
         <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.7/main.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.7/main.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/interaction@6.1.7/main.js"></script>
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         <script>
+            var eventsData = {!! json_encode($data) !!};
+    
+
             document.addEventListener('DOMContentLoaded', function() {
                 var calendarEl = document.getElementById('calendar');
                 var csrfToken = '{{ csrf_token() }}';
@@ -68,17 +70,17 @@
 
                                 calendar.addEvent(eventData);
                                 fetch("{{ route('mycalendar.store') }}", {
-                                        method: 'POST',
-                                        headers: {
-                                            'Content-Type': 'application/json',
-                                            'X-CSRF-TOKEN': csrfToken
-                                        },
-                                        body: JSON.stringify({
-                                            title: title,
-                                            start: info.startStr,
-                                            end: info.endStr
-                                        })
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                        'X-CSRF-TOKEN': csrfToken
+                                    },
+                                    body: JSON.stringify({
+                                        title: title,
+                                        start: info.startStr,
+                                        end: info.endStr
                                     })
+                                })
                                     .then(response => response.json())
                                     .then(data => {
                                         // Update the event object with the server-generated ID
@@ -115,12 +117,12 @@
 
                                     // Send the event ID to the server and delete it from the database
                                     fetch("{{ route('mycalendar.destroy', '') }}/" + info.event.id, {
-                                            method: 'DELETE',
-                                            headers: {
-                                                'Content-Type': 'application/json',
-                                                'X-CSRF-TOKEN': csrfToken
-                                            }
-                                        })
+                                        method: 'DELETE',
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                            'X-CSRF-TOKEN': csrfToken
+                                        }
+                                    })
                                         .then(response => response.json())
                                         .then(data => {
                                             console.log(data.message);
@@ -137,23 +139,9 @@
                             });
                     }
                 });
-
-                // Fetch events from the server and populate the calendar
-                fetch("{{ route('mycalendar.events') }}", {
-                        method: 'GET',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': csrfToken
-                        }
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        calendar.addEventSource(data);
-                    })
-                    .catch(error => console.error(error));
-
-                calendar.render();
-            });
+            calendar.addEventSource(eventsData);
+           calendar.render();
+           });
         </script>
 
   </div>

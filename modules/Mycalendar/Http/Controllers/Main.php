@@ -17,7 +17,8 @@ class Main extends Controller
      */
     public function index()
     {
-        return $this->response('mycalendar::index');
+        $data = Event::all();
+        return  view('mycalendar::index', compact('data'));
     }
 
     /**
@@ -79,17 +80,18 @@ class Main extends Controller
      * @return Response
      */
     
-    public function update(Request $request, $id)
-    {
-        $event = Event::findOrFail($id);
-
-        $event->update([
-            'start' => $request->start_date,
-            'end' => $request->end_date,
-        ]);
-
-        return response()->json($event);
-    }
+     public function update(Request $request, $id)
+     {
+         $event = Event::findOrFail($id);
+     
+         $event->update([
+             'title' => $request->input('title'),
+             'start' => $request->input('start'), // Check column name
+             'end' => $request->input('end'), // Check column name
+         ]);
+     
+         return response()->json($event);
+     }
 
     /**
      * Remove the specified resource from storage.

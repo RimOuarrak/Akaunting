@@ -4,8 +4,12 @@ use Illuminate\Support\Facades\Route;
 use Modules\Mycalendar\Http\Controllers\Main;
 
 Route::admin('mycalendar', function () {
-    Route::get('/', [Main::class, 'index'])->name('mycalendar.index');
-    Route::post('events', [Main::class, 'store'])->name('mycalendar.events.store');
+    Route::get('/', [Main::class, 'index'])->name('index');
+    Route::post('events', [Main::class, 'store'])->name('events.store');
+    Route::post('store', [Main::class, 'store'])->name('store');
+    Route::patch('update/{id}', [Main::class, 'update'])->name('update');
+    Route::patch('events/{id}', [Main::class, 'update'])->name('events.update');
+    Route::delete('destroy/{id}', [Main::class, 'destroy'])->name('destroy');
 });
 
 Route::api('mycalendar', function () {
@@ -16,8 +20,6 @@ Route::api('mycalendar', function () {
 });
 
 Route::get('mycalendar/events', [Main::class, 'events'])->name('mycalendar.events');
-Route::get('mycalendar/index', [Main::class, 'index'])->name('mycalendar.index');
-Route::post('mycalendar/store', [Main::class, 'store'])->name('mycalendar.store');
-Route::patch('mycalendar/update/{id}', [Main::class, 'update'])->name('mycalendar.update');
-Route::delete('mycalendar/destroy/{id}', [Main::class, 'destroy'])->name('mycalendar.destroy');
 Route::delete('mycalendar/events/{id}', [Main::class, 'destroy'])->name('mycalendar.events.destroy');
+Route::patch('mycalendar/events/{id}', [Main::class, 'update'])->name('mycalendar.events.update');
+
