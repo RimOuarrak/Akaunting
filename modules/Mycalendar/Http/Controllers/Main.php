@@ -6,6 +6,7 @@ use App\Abstracts\Http\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Modules\Mycalendar\Models\Event;
+use Illuminate\Support\Facades\Log;
 
 
 class Main extends Controller
@@ -83,13 +84,10 @@ class Main extends Controller
      public function update(Request $request, $id)
      {
          $event = Event::findOrFail($id);
-     
-         $event->update([
-             'title' => $request->input('title'),
-             'start' => $request->input('start'), // Check column name
-             'end' => $request->input('end'), // Check column name
-         ]);
-     
+        $event->update([
+            'start' => ($request->input('start') == NULL) ? $request->input('end') : $request->input('start'), // Check column name
+            'end' => ($request->input('end') == NULL) ? $request->input('start') : $request->input('end'), // Check column name
+        ]);     
          return response()->json($event);
      }
 

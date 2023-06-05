@@ -23,7 +23,6 @@
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         <script>
             var eventsData = {!! json_encode($data) !!};
-    
 
             document.addEventListener('DOMContentLoaded', function() {
                 var calendarEl = document.getElementById('calendar');
@@ -137,11 +136,36 @@
                             .catch((error) => {
                                 console.log(error);
                             });
+                    },
+                    eventDrop: function(info) {
+                        var event = info.event;
+
+                        var updatedEvent = {
+                            id: event.id,
+                            start: event.startStr,
+                            end: event.endStr
+                            // Update other event properties if needed
+                        };
+
+                        fetch("{{ route('mycalendar.update', '') }}/" + event.id, {
+                            method: 'PATCH',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': csrfToken
+                            },
+                            body: JSON.stringify(updatedEvent)
+                        })
+                            .then(response => response.json())
+                            .then(data => {
+                                console.log(data.message);
+                            })
+                            .catch(error => console.error(error));
                     }
                 });
-            calendar.addEventSource(eventsData);
-           calendar.render();
-           });
+
+                calendar.addEventSource(eventsData);
+                calendar.render();
+            });
         </script>
 
   </div>
