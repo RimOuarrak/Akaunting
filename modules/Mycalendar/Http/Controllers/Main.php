@@ -85,8 +85,8 @@ class Main extends Controller
      {
          $event = Event::findOrFail($id);
         $event->update([
-            'start' => ($request->input('start') == NULL) ? $request->input('end') : $request->input('start'), // Check column name
-            'end' => ($request->input('end') == NULL) ? $request->input('start') : $request->input('end'), // Check column name
+            'start' => $request->input('start'), // Check column name
+            'end' => $request->input('end'), // Check column name
         ]);     
          return response()->json($event);
      }

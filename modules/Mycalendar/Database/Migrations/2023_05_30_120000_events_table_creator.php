@@ -11,8 +11,8 @@ class EventsTableCreator extends Migration
         Schema::create('events', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->datetime('start');
-            $table->datetime('end');
+            $table->date('start');
+            $table->date('end');
             $table->string('color');
             $table->string('textColor');
             $table->timestamps();

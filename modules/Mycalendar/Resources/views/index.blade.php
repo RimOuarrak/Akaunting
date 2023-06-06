@@ -13,6 +13,8 @@
 <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.7/index.global.min.js'></script>
 <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/interaction@6.1.7/index.global.min.js'></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
 <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <body>
@@ -21,6 +23,7 @@
         <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.7/main.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/interaction@6.1.7/main.js"></script>
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
         <script>
             var eventsData = {!! json_encode($data) !!};
 
@@ -45,6 +48,20 @@
                     dayHeaderFormat: {
                         weekday: 'short',
                         day: 'numeric'
+                    },
+                    eventContent: function(info) {
+                        var timeFormat = new Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: '2-digit' });
+                        var timeStr = timeFormat.format(info.event.start);
+
+                        return {
+                            html: '<div class="fc-event-time">' + info.event.title + '</div>',
+                        };
+                    },
+                    eventClassNames: function(info) {
+                        if (info.event.end - info.event.start <= 86400000) { // Check if the event is a single-day event
+                            return ['single-day-event']; // Apply a custom CSS class for single-day events
+                        }
+                        return []; // No additional CSS classes for multi-day events
                     },
                     select: function(info) {
                         swal({
@@ -139,7 +156,6 @@
                     },
                     eventDrop: function(info) {
                         var event = info.event;
-
                         var updatedEvent = {
                             id: event.id,
                             start: event.startStr,
@@ -167,6 +183,17 @@
                 calendar.render();
             });
         </script>
+
+        <style>
+            .fc-event-time {
+                font-weight: bold;
+            }
+
+            .single-day-event {
+                background-color: #6da252;
+                color: white;
+            }
+        </style>
 
   </div>
 </body>
