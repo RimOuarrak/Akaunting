@@ -319,6 +319,7 @@ return new class extends Migration
         });
 
         // Modules
+        // description icon made added by Rim
         Schema::create('modules', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('company_id');
@@ -326,7 +327,10 @@ return new class extends Migration
             $table->integer('status');
             $table->timestamps();
             $table->softDeletes();
-
+            $table->string('description');
+            $table->string('icon');
+            $table->integer('made');
+            
             $table->index('company_id');
             $table->unique(['company_id', 'alias', 'deleted_at']);
         });

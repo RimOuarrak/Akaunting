@@ -19,12 +19,13 @@
         <!-- <x-modules.pre-sale /> -->
 
         <!-- <x-modules.paid /> -->
-
+        
         <!-- <x-modules.nnew /> -->
 
         <!-- <x-modules.items /> -->
-    
+
         <livewire:module.index>
+
     </x-slot>
 
     <x-script folder="modules" file="apps" />

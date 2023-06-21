@@ -205,11 +205,15 @@ Route::group(['as' => 'settings.'], function () {
 
 Route::group(['as' => 'apps.', 'prefix' => 'apps'], function () {
     Route::resource('api-key', 'Modules\ApiKey');
-
+    
     Route::group(['middleware' => 'api.key'], function () {
         Route::resource('home', 'Modules\Home');
+        
+        Route::put('/module/{id}/update', 'Modules\Home@update')->name('module.update');
+        Route::get('/module/{id}', 'Modules\Home@details')->name('module.details');
 
         Route::resource('my', 'Modules\My');
+        
 
         Route::get('categories/{alias}', 'Modules\Tiles@categoryModules')->name('categories.show');
         Route::get('vendors/{alias}', 'Modules\Tiles@vendorModules')->name('vendors.show');

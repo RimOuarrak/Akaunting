@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Modules;
 
 use App\Abstracts\Http\Controller;
+use App\Models\Module\Module;
 
 class Home extends Controller
 {
@@ -25,4 +26,20 @@ class Home extends Controller
     {
         return redirect()->route('apps.home.index');
     }
+
+    public function details($id)
+    {
+        $module = Module::find($id);
+        return view('modules.home.details',compact('module'));
+    }
+
+    public function update(Request $request, $moduleId)
+    {
+        $module = Module::find($moduleId);
+        $module->enabled = $request->enabled;
+        $module->save();
+        return redirect()->route('apps.home.details');
+    }
+
+    
 }
