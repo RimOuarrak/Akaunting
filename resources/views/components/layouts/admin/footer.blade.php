@@ -9,4 +9,10 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        window.livewire.on('refresh', () => {
+            location.reload();
+        });
+    </script>
 @stack('footer_end')

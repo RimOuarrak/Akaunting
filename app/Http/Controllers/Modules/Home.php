@@ -32,14 +32,5 @@ class Home extends Controller
         $module = Module::find($id);
         return view('modules.home.details',compact('module'));
     }
-
-    public function update(Request $request, $moduleId)
-    {
-        $module = Module::find($moduleId);
-        $module->enabled = $request->enabled;
-        $module->save();
-        return redirect()->route('apps.home.details');
-    }
-
     
 }

@@ -62166,6 +62166,22 @@ body{
     height: 100%;
 }
 
+@media (min-width: 640px){
+
+    .dashboard .sm\:px-6{
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+
+    @media (min-width: 1024px){
+
+    .dashboard .sm\:px-6{
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+}
+
 @media (min-width: 1024px){
     .dashboard .lg\:px-12{
     padding-left: 0px;
@@ -65120,6 +65136,11 @@ body{
     padding-right: 0.5rem;
   }
 
+  .sm\:px-6{
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
   .sm\:py-10{
     padding-top: 2.5rem;
     padding-bottom: 2.5rem;
@@ -65197,6 +65218,11 @@ body{
         -ms-flex-direction: row;
             flex-direction: row;
   }
+
+  .md\:px-8{
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
 }
 
 @media (min-width: 1024px){
@@ -65269,12 +65295,20 @@ body{
     margin-bottom: 0px;
   }
 
+  .lg\:mb-24{
+    margin-bottom: 6rem;
+  }
+
   .lg\:mt-0{
     margin-top: 0px;
   }
 
   .lg\:mt-11{
     margin-top: 2.75rem;
+  }
+
+  .lg\:mt-16{
+    margin-top: 4rem;
   }
 
   .lg\:mt-2{
@@ -65391,6 +65425,10 @@ body{
 
   .lg\:w-2\/4{
     width: 50%;
+  }
+
+  .lg\:w-24{
+    width: 6rem;
   }
 
   .lg\:w-3\/12{
@@ -65527,6 +65565,12 @@ body{
             justify-content: center;
   }
 
+  .lg\:justify-between{
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+  }
+
   .lg\:justify-around{
     -ms-flex-pack: distribute;
         justify-content: space-around;
@@ -65538,6 +65582,16 @@ body{
 
   .lg\:gap-8{
     gap: 2rem;
+  }
+
+  .lg\:gap-x-8{
+    -webkit-column-gap: 2rem;
+       -moz-column-gap: 2rem;
+            column-gap: 2rem;
+  }
+
+  .lg\:gap-y-0{
+    row-gap: 0px;
   }
 
   .lg\:space-x-16 > :not([hidden]) ~ :not([hidden]){
@@ -65614,9 +65668,19 @@ body{
     padding-right: 1.5rem;
   }
 
+  .lg\:px-8{
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+
   .lg\:py-0{
     padding-top: 0px;
     padding-bottom: 0px;
+  }
+
+  .lg\:py-24{
+    padding-top: 6rem;
+    padding-bottom: 6rem;
   }
 
   .lg\:pl-12{
@@ -65715,6 +65779,10 @@ body{
     padding-left: 2rem;
   }
 
+  :is([dir="ltr"] .lg\:ltr\:text-right){
+    text-align: right;
+  }
+
   :is([dir="rtl"] .rtl\:lg\:left-0){
     left: 0px;
   }
@@ -65737,6 +65805,10 @@ body{
 
   :is([dir="rtl"] .rtl\:lg\:pr-8){
     padding-right: 2rem;
+  }
+
+  :is([dir="rtl"] .lg\:rtl\:text-left){
+    text-align: left;
   }
 }
 

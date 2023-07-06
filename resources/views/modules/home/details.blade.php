@@ -13,22 +13,7 @@
                         {{ $module->alias }}
                     </p>
                     <div class="flex flex-col md:flex-row items-start lg:items-right justify-start lg:justify-end space-x-2" >
-                        <form action="{{ route('apps.module.update', $module->id) }}" method="POST">
-                            @csrf
-                            @method('PUT')
-                            <input type="hidden" name="enabled" value="1" >
-                            <button type="submit"  class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-                                Enable
-                            </button>
-                        </form>
-                        <form action="{{ route('apps.module.update', $module->id) }}" method="POST">
-                            @csrf
-                            @method('PUT')
-                            <input type="hidden" name="enabled" value="0" >
-                            <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
-                                Disable
-                            </button>
-                        </form>
+                        <livewire:module.setting :id="$module->id" />
                     </div>
                     <p class="mt-9 text-xl text-gray-500">
                         {{ $module->description }}

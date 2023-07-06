@@ -327,9 +327,9 @@ return new class extends Migration
             $table->integer('status');
             $table->timestamps();
             $table->softDeletes();
-            $table->string('description');
-            $table->string('icon');
-            $table->integer('made');
+            // $table->string('description');
+            // $table->string('icon');
+            // $table->integer('made');
             
             $table->index('company_id');
             $table->unique(['company_id', 'alias', 'deleted_at']);

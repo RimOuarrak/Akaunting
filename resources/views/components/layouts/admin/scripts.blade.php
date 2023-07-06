@@ -318,3 +318,4 @@
 </script>
 
 @stack('scripts_end')
+
