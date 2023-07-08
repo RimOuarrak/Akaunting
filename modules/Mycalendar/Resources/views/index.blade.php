@@ -64,55 +64,73 @@
                         return []; // No additional CSS classes for multi-day events
                     },
                     select: function(info) {
-                        swal({
-                            title: 'Enter event title:',
-                            content: 'input',
-                            buttons: {
-                                cancel: true,
-                                confirm: {
-                                    text: 'Save',
-                                    closeModal: false,
-                                }
-                            },
-                        }).then((title) => {
-                            if (title) {
-                                var eventData = {
-                                    title: title,
-                                    start: info.startStr,
-                                    end: info.endStr,
-                                    color: '#6da252',
-                                    textColor: 'white'
-                                };
+    swal({
+        title: 'Choose event title:',
+        className: 'event-title-dialog',
+        buttons: {
+            option1: {
+                text: 'Invoice',
+                value: 'Invoice',
+            },
+            option2: {
+                text: 'Income',
+                value: 'Income',
+                color: '#ffd700',
+            },
+            option3: {
+                text: 'Bill',
+                value: 'Bill',
+                color: '#ffcccc',
+            },
+            option4: {
+                text: 'Expense',
+                value: 'Expense',
+                color: '#808080',
+            },
+            cancel: true,
+        },
+    }).then((value) => {
+        if (value) {
+            var title = value;
+            var eventData = {
+                title: title,
+                start: info.startStr,
+                end: info.endStr,
+                color: '#6da252',
+                textColor: 'white'
+            };
 
-                                calendar.addEvent(eventData);
-                                fetch("{{ route('mycalendar.store') }}", {
-                                    method: 'POST',
-                                    headers: {
-                                        'Content-Type': 'application/json',
-                                        'X-CSRF-TOKEN': csrfToken
-                                    },
-                                    body: JSON.stringify({
-                                        title: title,
-                                        start: info.startStr,
-                                        end: info.endStr
-                                    })
-                                })
-                                    .then(response => response.json())
-                                    .then(data => {
-                                        // Update the event object with the server-generated ID
-                                        eventData.id = data.id;
-                                        calendar.updateEvent(eventData);
-                                    })
-                                    .catch(error => console.error(error));
+            calendar.addEvent(eventData);
+            fetch("{{ route('mycalendar.store') }}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrfToken
+                },
+                body: JSON.stringify({
+                    title: title,
+                    start: info.startStr,
+                    end: info.endStr
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Update the event object with the server-generated ID
+                eventData.id = data.id;
+                calendar.updateEvent(eventData);
+            })
+            .catch(error => console.error(error));
 
-                                swal("Event created!", "Your event has been added.", "success");
-                            } else {
-                                swal("Event not created!", "Please enter a valid event title.", "error");
-                            }
-                        }).catch((error) => {
-                            console.log(error);
-                        });
-                    },
+            swal("Event created!", "Your event has been added.", "success");
+        } else {
+            swal("Event not created!", "Please select a valid event title.", "error");
+        }
+    }).catch((error) => {
+        console.log(error);
+    });
+},
+
+
                     eventClick: function(info) {
                         swal({
                             title: 'Are you sure?',
@@ -183,6 +201,32 @@
                 calendar.render();
             });
         </script>
+<!-- 
+<style>
+    .fc-event-time {
+        font-weight: bold;
+    }
+ 
+    .single-day-event.option1 {
+        background-color: #6da252; /* Default green color */
+        color: white;
+    }
+
+    .single-day-event.option2 {
+        background-color: #ffd700; /* Yellow color */
+        color: white;
+    }
+    
+    .single-day-event.option3 {
+        background-color: #ffcccc; /* Pinkish-red color */
+        color: white;
+    }
+
+    .single-day-event.option4 {
+        background-color: #808080; /* Gray color */
+        color: white;
+    }
+</style> -->
 
         <style>
             .fc-event-time {

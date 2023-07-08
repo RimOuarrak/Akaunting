@@ -11,7 +11,7 @@
         <x-link href="{{ route('apps.my.index') }}"> 
             {{ trans('modules.my_apps') }}
         </x-link>  -->
-    </x-slot>
+    <!-- </x-slot> -->
 
     <x-slot name="content">
         <!-- <x-modules.banners /> -->
