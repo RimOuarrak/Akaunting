@@ -5,7 +5,7 @@ namespace Modules\Mycalendar\Http\Controllers;
 use App\Abstracts\Http\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Modules\Mycalendar\Models\Event;
+use App\Models\Document\Document;
 use Illuminate\Support\Facades\Log;
 
 
@@ -18,7 +18,7 @@ class Main extends Controller
      */
     public function index()
     {
-        $data = Event::all();
+        $data = Document::all();
         return  view('mycalendar::index', compact('data'));
     }
 
@@ -59,9 +59,9 @@ class Main extends Controller
      */
     public function show($id)
     {
-        return view('mycalendar::show');
+        $document = Document::findOrFail($id);
+        return response()->json($document);
     }
-
     /**
      * Show the form for editing the specified resource.
      *

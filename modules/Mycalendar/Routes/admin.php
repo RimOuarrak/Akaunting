@@ -10,6 +10,7 @@ Route::admin('mycalendar', function () {
     Route::patch('update/{id}', [Main::class, 'update'])->name('update');
     Route::patch('events/{id}', [Main::class, 'update'])->name('events.update');
     Route::delete('destroy/{id}', [Main::class, 'destroy'])->name('destroy');
+    Route::get('documents/{id}', [Main::class, 'show'])->name('show');
 });
 
 Route::api('mycalendar', function () {
